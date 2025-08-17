@@ -35,7 +35,9 @@ class SearchResultListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return const Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: const BookListViewItem(),
+          child:
+          //  const BookListViewItem(),
+          Text("Search Result Item"),
         );
       },
     );

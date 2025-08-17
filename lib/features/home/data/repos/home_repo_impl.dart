@@ -56,4 +56,30 @@ class HomeRepoImpl implements HomeRepo {
       );
     }
   }
+
+  Future<Either<Failure, List<BookModel>>> fetchSimilarBooks({
+    required String category,
+  }) async {
+    // TODO: implement fetchFeaturedBooks
+    try {
+      var data = await apiService.get(
+        endpoint:
+            'volumes?Filtering=free-ebooks&Sorting=relevance&q=subject:programming',
+      );
+      List<BookModel> books = [];
+      for (var book in data['items']) {
+        books.add(BookModel.fromJson(book));
+      }
+      return Right(books);
+    } catch (e) {
+      // TODO
+
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(
+        ServerFailure('An unexpected error occurred: ${e.toString()}'),
+      );
+    }
+  }
 }
